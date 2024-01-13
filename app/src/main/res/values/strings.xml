@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Application meteo</string>
+    <string name="soleil">Ensoleillé</string>
+    <string name="pluie">Pluveux</string>
+    <string name="neige">Enneigé</string>
+    <string name="orage">Orageux</string>
+    <string name="search">Rechercher une ville</string>
+</resources>

@@ -8,6 +8,7 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="blanc_transparant">#E9F3FF</color>
     <color name="bleu_claire">#D3E7FF</color>
     <color name="bleu_icon">#14A7FF</color>
     <color name="bleu">#2CA7F3</color>

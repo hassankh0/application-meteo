@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.R
+import com.example.applicationmeteo.adapter.WeatherAdapter
 
 class HomeFragment : Fragment() {
 
@@ -14,7 +16,12 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(R.layout.fragment_home , container, false)
+        val view = inflater.inflate(R.layout.fragment_home , container, false)
+
+        val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather)
+        horizontalRecyclerView.adapter = WeatherAdapter()
+ 
+    return view
     }
 
 }

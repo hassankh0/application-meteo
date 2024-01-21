@@ -16,13 +16,16 @@
         android:gravity="center"
         android:text="@string/aujourdhui" />
 
+    <!-- Add this TextView to your existing layout -->
     <TextView
+        android:id="@+id/dateTextView"
         style="@style/HomeHeaderDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Dim Jan 21" />
+        android:text="Initial Date Value" />
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

@@ -3,8 +3,10 @@ package com.example.applicationmeteo
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.applicationmeteo.fragments.HomeFragment
 import com.example.applicationmeteo.fragments.WeekFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,13 +14,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val navigationView = findViewById<BottomNavigationView>(R.id.navigation_view)
+        navigationView.setOnNavigationItemReselectedListener {
+            when(it.itemId) {
+                R.id.home_page -> {
+                    loadFragment(HomeFragment(this))
+                }
+            }
+        }
+
         // Inject the HomeFragment
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.page_container, WeekFragment(this))
-        transaction.addToBackStack(null)
-        transaction.commit()
+        loadFragment(HomeFragment(this))
     }
 
+private fun loadFragment(fragment: Fragment) {
+    val transaction = supportFragmentManager.beginTransaction()
+    transaction.replace(R.id.page_container, fragment)
+    transaction.addToBackStack(null)
+    transaction.commit()
 
+}
 
 }

@@ -19,7 +19,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home , container, false)
 
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather)
-        horizontalRecyclerView.adapter = WeatherAdapter()
+        horizontalRecyclerView.adapter = WeatherAdapter(R.layout.item_meteo_list)
  
     return view
     }

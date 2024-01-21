@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.R
 
-class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
+class WeatherAdapter(private val layoutId: Int) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val weatherItem = view.findViewById<ImageView>(R.id.list_weather)
@@ -16,7 +16,7 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.item_meteo_list, parent, false)
+            .inflate(layoutId, parent, false)
 
         return ViewHolder(view)
     }

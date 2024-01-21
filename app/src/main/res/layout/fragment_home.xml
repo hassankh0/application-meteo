@@ -209,11 +209,13 @@
             android:text="@string/aujourdhui" />
 
         <TextView
+            android:id="@+id/weekText"
             style="@style/HomeHeaderDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:clickable="true"
             android:text="7 prochain jours>" />
     </LinearLayout>
 

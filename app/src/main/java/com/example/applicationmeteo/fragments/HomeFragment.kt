@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.MainActivity
 import com.example.applicationmeteo.R
@@ -56,12 +57,21 @@ class HomeFragment(
         // Get the current date TextView
         val dateTextView: TextView = view.findViewById(R.id.dateTextView)
 
+
         // Get the current date
         val currentDate = getCurrentDate()
 
         // Set the current date to the TextView
         dateTextView.text = currentDate
 
+        val weekTextView: TextView = view.findViewById(R.id.weekText)
+        weekTextView.setOnClickListener {
+            // Navigate to WeekFragment
+            val transaction: FragmentTransaction = context.supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.page_container, WeekFragment(context))
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
         return view
     }
 

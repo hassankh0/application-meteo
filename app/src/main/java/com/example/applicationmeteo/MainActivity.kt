@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     //injecter le fragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.page_container, HomeFragment())
+        transaction.replace(R.id.page_container, HomeFragment(this))
         transaction.addToBackStack(null)
         transaction.commit()
 

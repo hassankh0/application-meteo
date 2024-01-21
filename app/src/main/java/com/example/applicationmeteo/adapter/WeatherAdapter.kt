@@ -4,13 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.R
+import com.example.applicationmeteo.constant.WeatherCategoryEnum
+import com.example.applicationmeteo.model.WeatherModel
 
-class WeatherAdapter(private val layoutId: Int) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
+class WeatherAdapter(
+    private val weatherList: List<WeatherModel>,
+    private val layoutId: Int
+) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val weatherItem = view.findViewById<ImageView>(R.id.list_weather)
+        val weatherCategory = view.findViewById<ImageView>(R.id.item_meteo_list_category)
+        val weatherTemperature = view.findViewById<TextView>(R.id.item_meteo_list_temperature)
+        val weatherHour = view.findViewById<TextView>(R.id.item_meteo_list_hour)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,9 +29,16 @@ class WeatherAdapter(private val layoutId: Int) : RecyclerView.Adapter<WeatherAd
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = 5
+    override fun getItemCount(): Int = weatherList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //TODO
+        val currentWeather = weatherList[position]
+
+        holder.weatherTemperature.text = currentWeather.temperature
+        holder.weatherHour.text = currentWeather.heure
+
+        val weatherCategoryEnum = currentWeather.category
+        val imageResourceId = weatherCategoryEnum.imageResourceId
+        holder.weatherCategory.setImageResource(imageResourceId)
     }
 }

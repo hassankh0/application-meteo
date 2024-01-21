@@ -14,6 +14,7 @@
 
 
     <TextView
+        android:id="@+id/item_meteo_list_hour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -22,6 +23,7 @@
         />
 
     <ImageView
+        android:id="@+id/item_meteo_list_category"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginHorizontal="5dp"
@@ -29,6 +31,7 @@
         android:src="@drawable/sun" />
 
     <TextView
+        android:id="@+id/item_meteo_list_temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

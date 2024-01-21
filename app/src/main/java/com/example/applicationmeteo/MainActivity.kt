@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         // Inject the HomeFragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.page_container, HomeFragment(this))
+        transaction.replace(R.id.page_container, WeekFragment(this))
         transaction.addToBackStack(null)
         transaction.commit()
     }

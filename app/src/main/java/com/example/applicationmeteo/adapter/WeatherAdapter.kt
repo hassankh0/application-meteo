@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.R
 import com.example.applicationmeteo.constant.WeatherCategoryEnum
 import com.example.applicationmeteo.model.WeatherModel
+import java.util.Objects
 
 class WeatherAdapter(
     private val weatherList: List<WeatherModel>,
@@ -34,11 +35,16 @@ class WeatherAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentWeather = weatherList[position]
 
+        if (Objects.nonNull(holder.weatherTemperature)){
         holder.weatherTemperature.text = currentWeather.temperature
-        holder.weatherHour.text = currentWeather.heure
-
-        val weatherCategoryEnum = currentWeather.category
-        val imageResourceId = weatherCategoryEnum.imageResourceId
-        holder.weatherCategory.setImageResource(imageResourceId)
+            }
+        if (Objects.nonNull(holder.weatherHour)) {
+            holder.weatherHour.text = currentWeather.heure
+        }
+        if (Objects.nonNull(holder.weatherCategory)) {
+            val weatherCategoryEnum = currentWeather.category
+            val imageResourceId = weatherCategoryEnum.imageResourceId
+            holder.weatherCategory.setImageResource(imageResourceId)
+        }
     }
 }

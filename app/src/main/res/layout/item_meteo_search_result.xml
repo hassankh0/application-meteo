@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bleu_claire"
+
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/search_result_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blanc_transparant"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/search_result_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/blanc_transparant"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/week_top_card_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/blanc_transparant"
+            android:orientation="vertical">
+
+
+            <TextView
+                style="@style/HomeHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="10dp"
+                android:text="Paris"/>
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="9dp"
+                android:text="11:10" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/week_top_card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/blanc_transparant"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            >
+            <TextView
+                style="@style/HomeHeaderTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="220dp"
+                android:gravity="center"
+                android:text="25°"/>
+        </LinearLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/weatherStat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    <TextView
+        android:id="@+id/search_result_HB"
+        style="@style/WeatherTextTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/soleil" />
+
+        <TextView
+            android:id="@+id/weatherText"
+            style="@style/WeatherTextTitle"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:text="H:25° B: 12°" />
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

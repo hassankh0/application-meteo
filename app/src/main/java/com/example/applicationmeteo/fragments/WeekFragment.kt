@@ -11,6 +11,7 @@ import com.example.applicationmeteo.MainActivity
 import com.example.applicationmeteo.R
 import com.example.applicationmeteo.adapter.WeatherAdapter
 import com.example.applicationmeteo.constant.WeatherCategoryEnum
+import com.example.applicationmeteo.model.HourlyData
 import com.example.applicationmeteo.model.WeatherModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -28,26 +29,7 @@ class WeekFragment(
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather_allday)
 
         val weatherList = arrayListOf(
-            WeatherModel(
-                category = WeatherCategoryEnum.ENSOLEILLE,
-                temperature = "22" + "°",
-                heure = "8am"
-            ),
-            WeatherModel(
-                category = WeatherCategoryEnum.PLUVIEUX,
-                temperature = "23" + "°",
-                heure = "9am"
-            ),
-            WeatherModel(
-                category = WeatherCategoryEnum.NUAGEUX,
-                temperature = "23" + "°",
-                heure = "10am"
-            ),
-            WeatherModel(
-                category = WeatherCategoryEnum.ENNEIGE,
-                temperature = "24" + "°",
-                heure = "11am"
-            )
+            HourlyData("","",0.0,1, "")
         )
         horizontalRecyclerView.adapter = WeatherAdapter(weatherList,R.layout.item_meto_allday_list)
         // Get the current date TextView

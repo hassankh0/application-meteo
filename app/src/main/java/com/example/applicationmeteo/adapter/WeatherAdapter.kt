@@ -8,11 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.R
 import com.example.applicationmeteo.constant.WeatherCategoryEnum
+import com.example.applicationmeteo.constant.mapToWeatherCategory
+import com.example.applicationmeteo.model.HourlyData
 import com.example.applicationmeteo.model.WeatherModel
 import java.util.Objects
+import kotlin.math.roundToInt
 
 class WeatherAdapter(
-    private val weatherList: List<WeatherModel>,
+    private val weatherList: List<HourlyData>,
     private val layoutId: Int
 ) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
@@ -38,15 +41,17 @@ class WeatherAdapter(
         val currentWeather = weatherList[position]
 
         if (Objects.nonNull(holder.weatherTemperature)){
-        holder.weatherTemperature.text = currentWeather.temperature
+        holder.weatherTemperature.text = currentWeather.temperature?.roundToInt().toString() +" "+ currentWeather.temp_unit
             }
         if (Objects.nonNull(holder.weatherHour)) {
-            holder.weatherHour.text = currentWeather.heure
+            holder.weatherHour.text = currentWeather.hour
         }
         if (Objects.nonNull(holder.weatherCategory)) {
-            val weatherCategoryEnum = currentWeather.category
-            val imageResourceId = weatherCategoryEnum.imageResourceId
-            holder.weatherCategory.setImageResource(imageResourceId)
+            val weatherCategoryEnum = currentWeather.weatherCode?.let { mapToWeatherCategory(it) }
+            val imageResourceId = weatherCategoryEnum?.imageResourceId
+            if (imageResourceId != null) {
+                holder.weatherCategory.setImageResource(imageResourceId)
+            }
         }
     }
 }

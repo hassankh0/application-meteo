@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.applicationmeteo.fragments.HomeFragment
 import com.example.applicationmeteo.fragments.SearchFragment
+import com.example.applicationmeteo.fragments.SettingFragment
 import com.example.applicationmeteo.fragments.WeekFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.home_location -> {
                     loadFragment(SearchFragment(this))
+                }
+                R.id.home_setting -> {
+                    loadFragment(SettingFragment(this))
                 }
             }
         }

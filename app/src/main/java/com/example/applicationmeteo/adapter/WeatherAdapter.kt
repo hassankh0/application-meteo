@@ -16,6 +16,8 @@ class WeatherAdapter(
     private val layoutId: Int
 ) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
+
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val weatherCategory = view.findViewById<ImageView>(R.id.item_meteo_list_category)
         val weatherTemperature = view.findViewById<TextView>(R.id.item_meteo_list_temperature)

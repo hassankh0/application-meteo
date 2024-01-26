@@ -1,12 +1,10 @@
 package com.example.applicationmeteo
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.applicationmeteo.fragments.HomeFragment
 import com.example.applicationmeteo.fragments.SearchFragment
-import com.example.applicationmeteo.fragments.WeekFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -31,12 +29,12 @@ class MainActivity : AppCompatActivity() {
         loadFragment(HomeFragment(this))
     }
 
-private fun loadFragment(fragment: Fragment) {
+    private fun loadFragment(fragment: Fragment) {
     val transaction = supportFragmentManager.beginTransaction()
     transaction.replace(R.id.page_container, fragment)
     transaction.addToBackStack(null)
     transaction.commit()
 
-}
+    }
 
 }

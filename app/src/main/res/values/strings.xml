@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application meteo</string>
+    <string name="app_name">Application mete</string>
     <string name="soleil">Ensoleillé</string>
     <string name="pluie">Pluvieux</string>
     <string name="neige">Enneigé</string>

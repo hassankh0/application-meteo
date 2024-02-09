@@ -26,7 +26,7 @@ class SearchFragment(
         val horizontalRecyclerView =
             view.findViewById<RecyclerView>(R.id.list_weather_search_result)
         val weatherList = arrayListOf(
-            HourlyData("","",0.0,1, "")
+            HourlyData(date = "", hour = "", temperature = 0.0, weatherCode = 1, temp_unit = "")
         )
 
         horizontalRecyclerView.adapter =

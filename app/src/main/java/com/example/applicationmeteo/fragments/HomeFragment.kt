@@ -18,6 +18,7 @@ import com.example.applicationmeteo.model.WeatherForecastResponse
 import com.example.applicationmeteo.model.WeatherModel
 import com.example.applicationmeteo.service.ApiConfig
 import com.example.applicationmeteo.utils.DataDAO
+import com.example.applicationmeteo.utils.getCurrentDate
 import com.example.applicationmeteo.viewmodel.MainViewModel
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
@@ -67,13 +68,6 @@ class HomeFragment(
         return view
     }
 
-    private fun getCurrentDate(): String {
-        val calendar = Calendar.getInstance()
-        val currentDate = calendar.time
-
-        val dateFormat = SimpleDateFormat("EEE MMM dd", Locale.getDefault())
-        return dateFormat.format(currentDate)
-    }
     private fun subscribe() {
         mainViewModel.weatherForecastData.observe(context) {weatherFData ->
             // Display weather data to the UI

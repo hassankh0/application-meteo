@@ -32,7 +32,7 @@
 
 
             <ImageView
-                android:id="@+id/weatherImage"
+                android:id="@+id/fragment_meteo_allday_temp_image"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -56,7 +56,7 @@
                 android:text="@string/aujourdhui"/>
 
             <TextView
-                android:id="@+id/dateTextView"
+                android:id="@+id/fragment_meteo_allday_date"
                 style="@style/HomeHeaderDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:text="Initial Date Value" />
 
             <TextView
-                android:id="@+id/weatherText"
+                android:id="@+id/fragment_meteo_allday_temp"
                 style="@style/WeatherTextTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 android:text="@string/soleil" />
 
             <TextView
-                android:id="@+id/weatherTemprature"
+                android:id="@+id/fragment_meteo_allday_temperature"
                 style="@style/WeatherTextValueBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +118,7 @@
                         android:src="@drawable/umbrella" />
 
                     <TextView
+                        android:id="@+id/fragment_meteo_allday_pluie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/WeatherTextStats"
@@ -157,6 +158,7 @@
                         android:src="@drawable/vent" />
 
                     <TextView
+                        android:id="@+id/fragment_meteo_allday_vent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/WeatherTextStats"
@@ -195,6 +197,7 @@
                         android:src="@drawable/humidity" />
 
                     <TextView
+                        android:id="@+id/fragment_meteo_allday_humidite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/WeatherTextStats"

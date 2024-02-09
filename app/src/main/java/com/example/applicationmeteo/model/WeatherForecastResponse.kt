@@ -94,17 +94,11 @@ data class Current(
 
 data class Daily(
 
-	@field:SerializedName("apparent_temperature_min")
-	val apparentTemperatureMin: List<Any?>? = null,
-
-	@field:SerializedName("apparent_temperature_max")
-	val apparentTemperatureMax: List<Any?>? = null,
-
 	@field:SerializedName("temperature_2m_max")
-	val temperature2mMax: List<Any?>? = null,
+	val temperature2mMax: List<Double?>? = null,
 
 	@field:SerializedName("temperature_2m_min")
-	val temperature2mMin: List<Any?>? = null,
+	val temperature2mMin: List<Double?>? = null,
 
 	@field:SerializedName("time")
 	val time: List<String?>? = null,
@@ -186,10 +180,12 @@ data class Hourly(
 )
 
 data class HourlyData(
-	val date: String,
-	val hour: String,
-	val temperature: Double?,
-	val weatherCode: Int?,
-	val temp_unit: String
+	val date: String = "",
+	val hour: String? = "",
+	val temperature: Double? = 0.0,
+	val temperatureMin: Double? = 0.0,
+	val temperatureMax: Double? = 0.0,
+	val weatherCode: Int? = 0,
+	val temp_unit: String = ""
 )
 

@@ -1,17 +1,19 @@
 package com.example.applicationmeteo.utils
 
 import com.example.applicationmeteo.constant.mapToWeatherCategory
-import com.example.applicationmeteo.model.HomeModel
+import com.example.applicationmeteo.model.WeatherModel
 import com.example.applicationmeteo.model.HourlyData
 import com.example.applicationmeteo.model.WeatherForecastResponse
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 open class DataDAO {
 
-    fun getHomePageData(weatherData: WeatherForecastResponse): HomeModel? {
+    fun getHomePageData(weatherData: WeatherForecastResponse): WeatherModel? {
         val hourlyData = arrayListOf<HourlyData>()
+
 
         val now = LocalDateTime.now()
 
@@ -29,11 +31,11 @@ open class DataDAO {
             ) {
                 val dataPoint = weatherData.currentUnits?.temperature2m?.let {
                     HourlyData(
-                        dt.date,
-                        dt.hour,
-                        weatherData.hourly?.temperature2m?.get(i),
-                        weatherData.hourly?.weatherCode?.get(i),
-                        it
+                        date = dt.date,
+                        hour = dt.hour,
+                        temperature = weatherData.hourly?.temperature2m?.get(i),
+                        weatherCode = weatherData.hourly?.weatherCode?.get(i),
+                        temp_unit = it
                     )
                 }
                 if (dataPoint != null) {
@@ -42,29 +44,71 @@ open class DataDAO {
             }
         }
 
-
-        val homeModel: HomeModel? =
+        val weatherModel: WeatherModel? =
             weatherData.current?.weatherCode?.let { mapToWeatherCategory(it) }?.let {
                 weatherData?.current?.relativeHumidity2m?.toString()?.let { it1 ->
-                    HomeModel(
-                        it,
-                        weatherData?.current?.temperature2m?.roundToInt().toString() +" "+ weatherData?.currentUnits?.temperature2m,
-                        weatherData?.current?.rain?.roundToInt().toString() +" "+ weatherData?.currentUnits?.rain,
-                        weatherData?.current?.windSpeed10m?.roundToInt().toString() +" "+ weatherData?.currentUnits?.windSpeed10m,
-                        it1 +" "+ weatherData?.currentUnits?.relativeHumidity2m,
-                        hourlyData
+                    WeatherModel(
+                        category = it,
+                        temperature = weatherData?.current?.temperature2m?.roundToInt().toString() +" "+ weatherData?.currentUnits?.temperature2m,
+                        pluie = weatherData?.current?.rain?.roundToInt().toString() +" "+ weatherData?.currentUnits?.rain,
+                        vent = weatherData?.current?.windSpeed10m?.roundToInt().toString() +" "+ weatherData?.currentUnits?.windSpeed10m,
+                        humidite = it1 +" "+ weatherData?.currentUnits?.relativeHumidity2m,
+                        journee = hourlyData
                     )
                 }
             }
 
-        return homeModel
+        return weatherModel
     }
 
-  /*  private fun getLocation() {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+    fun getWeekPageData(weatherData: WeatherForecastResponse): WeatherModel? {
+        val dailyWeatherData = mutableListOf<HourlyData>()
+
+        val now = LocalDate.now()
+
+        for (i in weatherData.daily?.time?.indices!!) {
+            val date: LocalDate? = weatherData.daily?.time[i]?.let {
+                LocalDate.parse(it, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            }
+
+            if (date != null && date.isAfter(now) && date.isBefore(now.plusDays(8))) {
+                val dataPoint = weatherData.currentUnits?.temperature2m?.let {
+                    HourlyData(
+                        date = date.toString(),
+                        temperatureMin =  weatherData.daily?.temperature2mMin?.get(i),
+                        temperatureMax = weatherData.daily?.temperature2mMax?.get(i),
+                        weatherCode = weatherData.hourly?.weatherCode?.get(i),
+                        temp_unit = it
+                    )
+                }
+                if (dataPoint != null) {
+                    dailyWeatherData.add(dataPoint)
+                }
+            }
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
-    }*/
+
+        val currentWeather = weatherData.current
+        val weatherModel: WeatherModel? = currentWeather?.weatherCode?.let { mapToWeatherCategory(it) }?.let {
+            currentWeather.relativeHumidity2m?.toString()?.let { humidity ->
+                WeatherModel(
+                    category =  it,
+                    temperature = currentWeather.temperature2m?.roundToInt().toString() + " " + weatherData.currentUnits?.temperature2m,
+                    pluie = currentWeather.rain?.roundToInt().toString() + " " + weatherData.currentUnits?.rain,
+                    vent = currentWeather.windSpeed10m?.roundToInt().toString() + " " + weatherData.currentUnits?.windSpeed10m,
+                    humidite = humidity + " " + weatherData.currentUnits?.relativeHumidity2m,
+                    journee = dailyWeatherData
+                )
+            }
+        }
+
+        return weatherModel
+    }
+
+    /*  private fun getLocation() {
+          val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+          if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+              ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+          }
+          locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+      }*/
 }

@@ -45,7 +45,7 @@ class WeekFragment(
         view = inflater.inflate(R.layout.fragment_meto_allday, container, false)
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather_allday)
 
-        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude()));
+        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude(), tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()));
 
         // Get the current date TextView
         val dateTextView: TextView = view.findViewById(R.id.fragment_meteo_allday_date)

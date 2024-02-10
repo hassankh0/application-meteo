@@ -16,6 +16,22 @@ class MainActivity : AppCompatActivity() {
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1001
 
+    private var degreeTemp = "celsius"
+    private var degreeVent = "kmh"
+
+    fun getDegreeTemp(): String {
+        return this.degreeTemp
+    }
+    fun getDegreeVent(): String {
+        return this.degreeVent
+    }
+    fun setDegreeTemp(variable: String) {
+        this.degreeTemp = variable
+    }
+    fun setDegreeVent(variable: String){
+        this.degreeVent = variable
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

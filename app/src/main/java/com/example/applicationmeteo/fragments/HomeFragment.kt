@@ -45,7 +45,7 @@ class HomeFragment(
 
         view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude()));
+        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude(), tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()));
 
         // Get the current date TextView
         val dateTextView: TextView = view.findViewById(R.id.fragment_home_date)

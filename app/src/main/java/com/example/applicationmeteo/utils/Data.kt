@@ -9,11 +9,33 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Bundle
+import androidx.core.app.ActivityCompat
+
 open class DataDAO {
+
+    private var context: Context? = null
+    private var locationManager: LocationManager? = null
+
+    private var myLongitude: Double = 1.85
+    private var myLatitude: Double = 50.95
+
+    constructor(context: Context) {
+        this.context = context
+        locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+
+        getLocation()
+    }
 
     fun getHomePageData(weatherData: WeatherForecastResponse): WeatherModel? {
         val hourlyData = arrayListOf<HourlyData>()
-
 
         val now = LocalDateTime.now()
 
@@ -104,11 +126,48 @@ open class DataDAO {
         return weatherModel
     }
 
-    /*  private fun getLocation() {
-          val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-          if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-              ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
-          }
-          locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
-      }*/
+    fun getMyLongitude(): Double {
+        return this.myLongitude
+    }
+
+    fun getMyLatitude(): Double {
+        return this.myLatitude
+    }
+
+    fun getLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                context!!,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                context!!,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Handle if permissions are not granted
+            return
+        }
+
+        val locationListener: LocationListener = object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                // Handle location change
+                val latitude = location.latitude
+                val longitude = location.longitude
+                // Do something with latitude and longitude
+                myLongitude = longitude
+                myLatitude = latitude
+                // Don't forget to remove updates if needed
+                locationManager?.removeUpdates(this)
+            }
+
+            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+
+            override fun onProviderEnabled(provider: String) {}
+
+            override fun onProviderDisabled(provider: String) {}
+        }
+
+        // Register for location updates
+        locationManager?.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null)
+        locationManager?.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null)
+    }
 }

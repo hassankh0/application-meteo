@@ -30,7 +30,7 @@ class HomeFragment(
 ) : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
-    private var dataDao: DataDAO = DataDAO()
+    private var dataDao: DataDAO = DataDAO(context)
 
     private lateinit var view: View
 
@@ -45,7 +45,7 @@ class HomeFragment(
 
         view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast());
+        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude()));
 
         // Get the current date TextView
         val dateTextView: TextView = view.findViewById(R.id.fragment_home_date)

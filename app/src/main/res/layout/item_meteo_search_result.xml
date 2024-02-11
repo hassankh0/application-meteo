@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blanc_transparant"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="15dp">
 
     <LinearLayout
         android:id="@+id/search_result_top"
@@ -27,6 +27,7 @@
 
 
             <TextView
+                android:id="@+id/search_ville_name"
                 style="@style/HomeHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="9dp"
-                android:text="11:10" />
+                android:text="" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/week_top_card_text"
@@ -51,6 +52,7 @@
             android:layout_marginStart="5dp"
             >
             <TextView
+                android:id="@+id/search_temperature"
                 style="@style/HomeHeaderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,19 +69,19 @@
         android:layout_height="wrap_content"
         >
     <TextView
-        android:id="@+id/search_result_HB"
+        android:id="@+id/search_temp"
         style="@style/WeatherTextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/soleil" />
 
         <TextView
-            android:id="@+id/weatherText"
+            android:id="@+id/search_hb"
             style="@style/WeatherTextTitle"
             android:layout_width="137dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="210dp"
-            android:text="H:25° B: 12°" />
+            android:layout_marginStart="180dp"
+            android:text="" />
     </LinearLayout>
     </LinearLayout>
 

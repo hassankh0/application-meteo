@@ -203,7 +203,7 @@
 
         <TextView
             android:id="@+id/today"
-            style="@style/HomeHeaderDate"
+            style="@style/textAujourdui"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -212,7 +212,7 @@
 
         <TextView
             android:id="@+id/weekText"
-            style="@style/HomeHeaderDate"
+            style="@style/textButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -26,9 +26,21 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name='WeatherTextTitle'>
+    <style name='textButton'>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name='textAujourdui'>
+        <item name="android:textColor">@color/bleu</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name='WeatherTextTitle'>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>
     </style>
 

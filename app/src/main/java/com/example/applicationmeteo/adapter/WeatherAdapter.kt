@@ -43,7 +43,11 @@ class WeatherAdapter(
         val weatherAllDayTempMin = view.findViewById<TextView>(R.id.item_meteo_allday_list_tempMin)
         val weatherAllDaytemp = view.findViewById<TextView>(R.id.item_meteo_allday_list_temps)
 
-        val searchweatherTemp = view.findViewById<TextView>(R.id.search_result_HB)
+        val searchweatherTemp = view.findViewById<TextView>(R.id.search_temp)
+        val searchweatherTemperature = view.findViewById<TextView>(R.id.search_temperature)
+        val searchweatherhb = view.findViewById<TextView>(R.id.search_hb)
+        val searchweatherVille = view.findViewById<TextView>(R.id.search_ville_name)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -106,8 +110,25 @@ class WeatherAdapter(
         }
 
         if (Objects.nonNull(holder.searchweatherTemp)) {
+            val weatherCategoryEnum = currentWeather.weatherCode?.let { mapToWeatherCategory(it) }
+            val desciptionResourceId = weatherCategoryEnum?.description
+            holder.searchweatherTemp.text = desciptionResourceId
+        }
 
-            holder.searchweatherTemp.text = currentWeather.temperature?.roundToInt().toString() + "°"
+        if (Objects.nonNull(holder.searchweatherTemperature)) {
+
+            holder.searchweatherTemperature.text = currentWeather.temperature?.roundToInt().toString()  +" "+ currentWeather.temp_unit
+        }
+
+        if (Objects.nonNull(holder.searchweatherVille)) {
+
+            holder.searchweatherVille.text = currentWeather.ville?.toUpperCase() ?: ""
+
+        }
+
+        if (Objects.nonNull(holder.searchweatherhb)) {
+
+            holder.searchweatherhb.text = ""
         }
 
 

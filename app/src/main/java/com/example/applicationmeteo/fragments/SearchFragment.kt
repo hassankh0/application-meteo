@@ -18,15 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.MainActivity
 import com.example.applicationmeteo.R
 import com.example.applicationmeteo.adapter.WeatherAdapter
-import com.example.applicationmeteo.constant.WeatherCategoryEnum
 import com.example.applicationmeteo.model.HourlyData
-import com.example.applicationmeteo.model.WeatherModel
 import com.example.applicationmeteo.service.ApiConfig
 import com.example.applicationmeteo.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlin.math.log
 
 class SearchFragment(
     private val context: MainActivity
@@ -39,24 +34,18 @@ class SearchFragment(
     private lateinit var mainViewModel: MainViewModel
     private lateinit var ville: String
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         mainViewModel = MainViewModel()
-
         subscribe()
         val view = inflater.inflate(R.layout.fragment_search, container, false)
-
         searchEditText = view.findViewById(R.id.searchEditText)
         recyclerView = view.findViewById(R.id.list_weather_search_result)
-
         weatherAdapter = WeatherAdapter(ArrayList(), R.layout.item_meteo_search_result, context)
         setupRecyclerView()
-
         searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 mainViewModel.getGeoCode(ApiConfig.getApiServiceGeo().getGeoLoc(searchEditText.text.toString()));
@@ -66,44 +55,34 @@ class SearchFragment(
                 false
             }
         }
-
         return view
     }
 
     private fun subscribe() {
-        mainViewModel.geoCodeData.observe(context) {data ->
+        mainViewModel.geoCodeData.observe(context) { data ->
             if (data.results.isNullOrEmpty()) {
-                // error
                 Snackbar.make(requireView(), "La ville recherchée n'a pas été trouver", Snackbar.LENGTH_LONG).show()
-
             } else {
                 data.results[0]?.longitude?.let { data.results[0]?.latitude?.let { it1 ->
-                    performSearch(it,
-                        it1
-                    )
+                    performSearch(it, it1)
                 } }
             }
-
         }
-
-        mainViewModel.weatherForecastData.observe(context) {weatherFData ->
-
+        mainViewModel.weatherForecastData.observe(context) { weatherFData ->
             val date = weatherFData.current?.time
-            val hour = "12:00 PM" // Random hour format, you can use your logic to generate hours
+            val hour = "12:00 PM"
             val temperature = weatherFData.current?.temperature2m
             val weatherCode = weatherFData.current?.weatherCode
             val tempUnit = weatherFData.currentUnits?.temperature2m
-
             val hourlyData = date?.let {
-                    HourlyData(
-                        date = it,
-                        hour = hour,
-                        temperature = temperature,
-                        weatherCode = weatherCode,
-                        temp_unit = tempUnit,
-                        ville = ville
-                    )
-
+                HourlyData(
+                    date = it,
+                    hour = hour,
+                    temperature = temperature,
+                    weatherCode = weatherCode,
+                    temp_unit = tempUnit,
+                    ville = ville
+                )
             }
             if (hourlyData != null) {
                 weatherAdapter.addData(hourlyData)
@@ -116,8 +95,6 @@ class SearchFragment(
         weatherAdapter = WeatherAdapter(weatherList, R.layout.item_meteo_search_result, context)
         recyclerView.adapter = weatherAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-        // Implement swipe functionality using ItemTouchHelper
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
                 recyclerView: RecyclerView,
@@ -128,25 +105,25 @@ class SearchFragment(
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                // Define the behavior for swiping left (for example, deleting the item)
                 val position = viewHolder.adapterPosition
                 val deletedItem = weatherAdapter.removeItem(position)
                 Snackbar.make(requireView(), "Item deleted", Snackbar.LENGTH_LONG)
                     .setAction("Undo") {
-                        // Undo action if needed (re-add the deleted item)
                         weatherAdapter.restoreItem(position, deletedItem)
                     }.show()
             }
         }
-
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
-
-    private fun performSearch(longitude:Double, latitude:Double) {
-        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = latitude, longitude = longitude, tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()));
-
+    private fun performSearch(longitude: Double, latitude: Double) {
+        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(
+            latitude = latitude,
+            longitude = longitude,
+            tempreture_unit = this.context.getDegreeTemp(),
+            wind_speed_unit = this.context.getDegreeVent()
+        ))
     }
 
     private fun clearSearchTextAndHideKeyboard() {

@@ -11,17 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.MainActivity
 import com.example.applicationmeteo.R
 import com.example.applicationmeteo.adapter.WeatherAdapter
-import com.example.applicationmeteo.constant.WeatherCategoryEnum
-import com.example.applicationmeteo.model.HourlyData
 import com.example.applicationmeteo.model.WeatherForecastResponse
-import com.example.applicationmeteo.model.WeatherModel
 import com.example.applicationmeteo.service.ApiConfig
 import com.example.applicationmeteo.utils.DataDAO
 import com.example.applicationmeteo.utils.getCurrentDate
 import com.example.applicationmeteo.viewmodel.MainViewModel
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class WeekFragment(
     private val context: MainActivity
@@ -45,15 +39,12 @@ class WeekFragment(
         view = inflater.inflate(R.layout.fragment_meto_allday, container, false)
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather_allday)
 
-        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude(), tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()));
+        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude(), tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()))
 
-        // Get the current date TextView
         val dateTextView: TextView = view.findViewById(R.id.fragment_meteo_allday_date)
 
-        // Get the current date
         val currentDate = getCurrentDate()
 
-        // Set the current date to the TextView
         dateTextView.text = currentDate
 
         return view
@@ -61,7 +52,6 @@ class WeekFragment(
 
     private fun subscribe() {
         mainViewModel.weatherForecastData.observe(context) { weatherFData ->
-            // Display weather data to the UI
             setResult(weatherFData)
         }
     }

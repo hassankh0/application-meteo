@@ -20,10 +20,6 @@ import com.example.applicationmeteo.service.ApiConfig
 import com.example.applicationmeteo.utils.DataDAO
 import com.example.applicationmeteo.utils.getCurrentDate
 import com.example.applicationmeteo.viewmodel.MainViewModel
-import java.lang.StringBuilder
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class HomeFragment(
     private val context: MainActivity
@@ -39,27 +35,26 @@ class HomeFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         mainViewModel = MainViewModel()
         subscribe()
 
         view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = dataDao.getMyLatitude(), longitude = dataDao.getMyLongitude(), tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()));
+        mainViewModel.getForecastWeather(
+            ApiConfig.getApiService().getWeatherForecast(
+                latitude = dataDao.getMyLatitude(),
+                longitude = dataDao.getMyLongitude(),
+                tempreture_unit = this.context.getDegreeTemp(),
+                wind_speed_unit = this.context.getDegreeVent()
+            )
+        )
 
-        // Get the current date TextView
         val dateTextView: TextView = view.findViewById(R.id.fragment_home_date)
-
-
-        // Get the current date
         val currentDate = getCurrentDate()
-
-        // Set the current date to the TextView
         dateTextView.text = currentDate
 
         val weekTextView: TextView = view.findViewById(R.id.weekText)
         weekTextView.setOnClickListener {
-            // Navigate to WeekFragment
             val transaction: FragmentTransaction = context.supportFragmentManager.beginTransaction()
             transaction.replace(R.id.page_container, WeekFragment(context))
             transaction.addToBackStack(null)
@@ -69,8 +64,7 @@ class HomeFragment(
     }
 
     private fun subscribe() {
-        mainViewModel.weatherForecastData.observe(context) {weatherFData ->
-            // Display weather data to the UI
+        mainViewModel.weatherForecastData.observe(context) { weatherFData ->
             setResult(weatherFData)
         }
     }
@@ -99,12 +93,6 @@ class HomeFragment(
             currentTempsImage.setImageResource(imageResourceId)
         }
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather)
-        horizontalRecyclerView.adapter = data?.journee?.let { WeatherAdapter(it, R.layout.item_meteo_list,context) }
-
-
-
+        horizontalRecyclerView.adapter = data?.journee?.let { WeatherAdapter(it, R.layout.item_meteo_list, context) }
     }
-
-
-
 }

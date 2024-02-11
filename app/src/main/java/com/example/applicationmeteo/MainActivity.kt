@@ -52,23 +52,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Inject the HomeFragment
         loadFragment(HomeFragment(this))
 
-        // Check if the permission is already granted
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // If not, request the permission
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
-        } else {
-            // Permission already granted, proceed with your logic
         }
     }
 
@@ -78,17 +73,6 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            LOCATION_PERMISSION_REQUEST_CODE -> {
-                // Check if the permission is granted
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, proceed with your logic
-                } else {
-                    // Permission denied, handle accordingly (e.g., show a message)
-                }
-            }
-
-        }
     }
 
 

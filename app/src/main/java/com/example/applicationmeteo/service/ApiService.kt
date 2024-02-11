@@ -1,5 +1,6 @@
 package com.example.applicationmeteo.service
 
+import com.example.applicationmeteo.model.GeoCodeListResponse
 import com.example.applicationmeteo.model.WeatherForecastResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -18,4 +19,12 @@ interface ApiService {
         @Query("wind_speed_unit") wind_speed_unit: String = "kmh",
         @Query("temperature_unit") tempreture_unit: String = "celsius"
     ): Call<WeatherForecastResponse>
+
+    @GET("v1/search")
+    fun getGeoLoc(
+        @Query("name") name: String = "Calais",
+        @Query("count") count: Int = 1,
+        @Query("language") language: String = "fr",
+        @Query("format") format: String = "json"
+    ): Call<GeoCodeListResponse>
 }

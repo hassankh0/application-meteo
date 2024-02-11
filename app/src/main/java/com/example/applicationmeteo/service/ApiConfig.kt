@@ -29,5 +29,26 @@ class ApiConfig {
 
             return retrofit.create(ApiService::class.java)
         }
+        fun getApiServiceGeo(): ApiService {
+
+            // API response interceptor
+            val loggingInterceptor = HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BODY)
+
+            // Client
+            val client = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
+
+            // Retrofit
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://geocoding-api.open-meteo.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build()
+
+            return retrofit.create(ApiService::class.java)
+        }
+
     }
 }

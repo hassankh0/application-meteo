@@ -1,5 +1,7 @@
 package com.example.applicationmeteo.adapter
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,8 @@ import com.example.applicationmeteo.constant.WeatherCategoryEnum
 import com.example.applicationmeteo.constant.mapToWeatherCategory
 import com.example.applicationmeteo.model.HourlyData
 import com.example.applicationmeteo.model.WeatherModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -19,11 +23,14 @@ import java.util.Objects
 import kotlin.math.roundToInt
 
 class WeatherAdapter(
-    private val weatherList: List<HourlyData>,
-    private val layoutId: Int
+    private var weatherList: List<HourlyData>,
+    private val layoutId: Int,
+    private val context: Context
 ) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
-
+    private val sharedPreferences: SharedPreferences by lazy {
+        context.getSharedPreferences("weather_data", Context.MODE_PRIVATE)
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val weatherCategory = view.findViewById<ImageView>(R.id.item_meteo_list_category)
@@ -35,6 +42,8 @@ class WeatherAdapter(
         val weatherAllDayTempMax= view.findViewById<TextView>(R.id.item_meteo_allday_list_tempMax)
         val weatherAllDayTempMin = view.findViewById<TextView>(R.id.item_meteo_allday_list_tempMin)
         val weatherAllDaytemp = view.findViewById<TextView>(R.id.item_meteo_allday_list_temps)
+
+        val searchweatherTemp = view.findViewById<TextView>(R.id.search_result_HB)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -96,5 +105,36 @@ class WeatherAdapter(
             holder.weatherAllDayTempMin.text = currentWeather.temperatureMin?.roundToInt().toString() + "°"
         }
 
+        if (Objects.nonNull(holder.searchweatherTemp)) {
+
+            holder.searchweatherTemp.text = currentWeather.temperature?.roundToInt().toString() + "°"
+        }
+
+
+    }
+
+    fun addData(newHourlyData: HourlyData) {
+        val mutableList = weatherList.toMutableList()
+        mutableList.add(newHourlyData)
+        weatherList = mutableList
+        notifyItemInserted(mutableList.size - 1)
+        saveWeatherDataToCache(weatherList)
+    }
+
+    private fun saveWeatherDataToCache(weatherList: List<HourlyData>) {
+        val editor = sharedPreferences.edit()
+        val json = Gson().toJson(weatherList)
+        editor.putString("weather_list", json)
+        editor.apply()
+    }
+
+    fun getWeatherDataFromCache(): List<HourlyData> {
+        val json = sharedPreferences.getString("weather_list", null)
+        val type = object : TypeToken<MutableList<HourlyData>>() {}.type
+        return if (json != null) {
+            Gson().fromJson(json, type)
+        } else {
+            mutableListOf()
+        }
     }
 }

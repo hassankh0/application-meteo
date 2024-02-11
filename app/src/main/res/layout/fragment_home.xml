@@ -46,8 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="45dp"
-                app:srcCompat="@drawable/sun" />
+                android:layout_marginTop="45dp"/>
 
             <TextView
                 android:id="@+id/fragment_home_temps"
@@ -56,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
-                android:text="@string/soleil" />
+                android:text="Loading" />
 
             <TextView
                 android:id="@+id/fragment_home_temprature"
@@ -66,7 +65,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="25°" />
+                android:text="---" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -101,7 +100,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/WeatherTextStats"
-                            android:text="22mm" />
+                            android:text="--" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -141,7 +140,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/WeatherTextStats"
-                            android:text="12 km/h" />
+                            android:text="--" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -180,7 +179,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             style="@style/WeatherTextStats"
-                            android:text="18%" />
+                            android:text="--" />
 
                         <TextView
                             style="@style/WeatherTextStats"

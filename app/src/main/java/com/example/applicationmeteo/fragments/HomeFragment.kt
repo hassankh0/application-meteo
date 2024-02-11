@@ -99,7 +99,7 @@ class HomeFragment(
             currentTempsImage.setImageResource(imageResourceId)
         }
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather)
-        horizontalRecyclerView.adapter = data?.journee?.let { WeatherAdapter(it, R.layout.item_meteo_list) }
+        horizontalRecyclerView.adapter = data?.journee?.let { WeatherAdapter(it, R.layout.item_meteo_list,context) }
 
 
 

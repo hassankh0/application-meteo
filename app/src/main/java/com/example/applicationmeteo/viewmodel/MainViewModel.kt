@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.applicationmeteo.model.GeoCodeListResponse
 import com.example.applicationmeteo.model.WeatherForecastResponse
 import com.example.applicationmeteo.service.ApiConfig
 import retrofit2.Callback
@@ -14,6 +15,9 @@ class MainViewModel() : ViewModel() {
 
     private val _weatherForecastData = MutableLiveData<WeatherForecastResponse>()
     val weatherForecastData: LiveData<WeatherForecastResponse> get() = _weatherForecastData
+
+    private val _geoCodeData = MutableLiveData<GeoCodeListResponse>()
+    val geoCodeData: LiveData<GeoCodeListResponse> get() = _geoCodeData
 
     private val _isLoading = MutableLiveData<Boolean>()
 
@@ -43,6 +47,34 @@ class MainViewModel() : ViewModel() {
             }
 
             override fun onFailure(call: Call<WeatherForecastResponse>, t: Throwable) {
+                onError(t.message)
+                t.printStackTrace()
+            }
+
+        })
+    }
+
+    fun getGeoCode(client: Call<GeoCodeListResponse>) {
+
+        // Send API request using Retrofit
+        client.enqueue(object : Callback<GeoCodeListResponse> {
+
+            override fun onResponse(
+                call: Call<GeoCodeListResponse>,
+                response: Response<GeoCodeListResponse>
+            ) {
+
+                val responseBody = response.body()
+                if (!response.isSuccessful || responseBody == null) {
+                    onError("Data Processing Error")
+                    return
+                }
+
+                _isLoading.value = false
+                _geoCodeData.postValue(responseBody)
+            }
+
+            override fun onFailure(call: Call<GeoCodeListResponse>, t: Throwable) {
                 onError(t.message)
                 t.printStackTrace()
             }

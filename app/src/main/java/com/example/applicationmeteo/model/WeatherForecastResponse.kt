@@ -186,6 +186,6 @@ data class HourlyData(
 	val temperatureMin: Double? = 0.0,
 	val temperatureMax: Double? = 0.0,
 	val weatherCode: Int? = 0,
-	val temp_unit: String = ""
+	val temp_unit: String? = ""
 )
 

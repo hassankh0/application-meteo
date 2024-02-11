@@ -91,7 +91,7 @@ class WeekFragment(
         }
         val horizontalRecyclerView = view.findViewById<RecyclerView>(R.id.list_weather_allday)
         horizontalRecyclerView.adapter =
-            data?.journee?.let { WeatherAdapter(it, R.layout.item_meto_allday_list) }
+            data?.journee?.let { WeatherAdapter(it, R.layout.item_meto_allday_list,context) }
 
 
     }

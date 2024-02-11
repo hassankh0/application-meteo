@@ -17,7 +17,7 @@ enum class WeatherCategoryEnum(val description: String, val imageResourceId: Int
     }
 }
 
-fun mapToWeatherCategory(code: Int): WeatherCategoryEnum {
+    fun mapToWeatherCategory(code: Int): WeatherCategoryEnum {
     return when (code) {
         0 -> WeatherCategoryEnum.ENSOLEILLE // Clear sky
         in listOf(1, 2, 3, 48) -> WeatherCategoryEnum.NUAGEUX // Mainly clear, partly cloudy, and overcast

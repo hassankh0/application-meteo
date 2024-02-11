@@ -5,15 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.MainActivity
 import com.example.applicationmeteo.R
-import com.example.applicationmeteo.adapter.WeatherAdapter
-import com.example.applicationmeteo.constant.WeatherCategoryEnum
-import com.example.applicationmeteo.model.WeatherModel
 
 class SettingFragment(
     private val context: MainActivity
@@ -45,7 +39,6 @@ class SettingFragment(
         buttonMS.setOnClickListener {
             this.context.setDegreeVent("ms")
         }
-
 
         return view
     }

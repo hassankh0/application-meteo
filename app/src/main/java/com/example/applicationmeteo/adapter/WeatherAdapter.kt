@@ -158,4 +158,24 @@ class WeatherAdapter(
             mutableListOf()
         }
     }
+
+    fun removeItem(position: Int): HourlyData {
+        val removedItem = weatherList[position]
+        val mutableList = weatherList.toMutableList()
+        mutableList.removeAt(position)
+        weatherList = mutableList
+        notifyItemRemoved(position)
+        saveWeatherDataToCache(weatherList)
+        return removedItem
+    }
+
+    fun restoreItem(position: Int, item: HourlyData) {
+        val mutableList = weatherList.toMutableList()
+        mutableList.add(position, item)
+        weatherList = mutableList
+        notifyItemInserted(position)
+        saveWeatherDataToCache(weatherList)
+    }
+
+
 }

@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blanc_transparant"
-        android:layout_marginHorizontal="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="15dp">
 
     <LinearLayout
         android:id="@+id/search_result_top"

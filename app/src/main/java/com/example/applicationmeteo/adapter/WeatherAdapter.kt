@@ -122,7 +122,8 @@ class WeatherAdapter(
 
         if (Objects.nonNull(holder.searchweatherVille)) {
 
-            holder.searchweatherVille.text = "ll"
+            holder.searchweatherVille.text = currentWeather.ville?.toUpperCase() ?: ""
+
         }
 
         if (Objects.nonNull(holder.searchweatherhb)) {

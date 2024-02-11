@@ -35,6 +35,7 @@ class SearchFragment(
     private lateinit var searchEditText: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var ville: String
 
 
     override fun onCreateView(
@@ -95,7 +96,8 @@ class SearchFragment(
                         hour = hour,
                         temperature = temperature,
                         weatherCode = weatherCode,
-                        temp_unit = tempUnit
+                        temp_unit = tempUnit,
+                        ville = ville
                     )
 
             }
@@ -118,6 +120,7 @@ class SearchFragment(
     }
 
     private fun clearSearchTextAndHideKeyboard() {
+        ville = searchEditText.text.toString()
         searchEditText.text.clear()
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)

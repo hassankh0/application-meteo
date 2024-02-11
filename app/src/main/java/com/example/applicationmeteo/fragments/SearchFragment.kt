@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applicationmeteo.MainActivity
@@ -22,6 +23,7 @@ import com.example.applicationmeteo.model.HourlyData
 import com.example.applicationmeteo.model.WeatherModel
 import com.example.applicationmeteo.service.ApiConfig
 import com.example.applicationmeteo.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlin.math.log
@@ -72,6 +74,8 @@ class SearchFragment(
         mainViewModel.geoCodeData.observe(context) {data ->
             if (data.results.isNullOrEmpty()) {
                 // error
+                Snackbar.make(requireView(), "La ville recherchée n'a pas été trouver", Snackbar.LENGTH_LONG).show()
+
             } else {
                 data.results[0]?.longitude?.let { data.results[0]?.latitude?.let { it1 ->
                     performSearch(it,
@@ -112,7 +116,33 @@ class SearchFragment(
         weatherAdapter = WeatherAdapter(weatherList, R.layout.item_meteo_search_result, context)
         recyclerView.adapter = weatherAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        // Implement swipe functionality using ItemTouchHelper
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                // Define the behavior for swiping left (for example, deleting the item)
+                val position = viewHolder.adapterPosition
+                val deletedItem = weatherAdapter.removeItem(position)
+                Snackbar.make(requireView(), "Item deleted", Snackbar.LENGTH_LONG)
+                    .setAction("Undo") {
+                        // Undo action if needed (re-add the deleted item)
+                        weatherAdapter.restoreItem(position, deletedItem)
+                    }.show()
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
+
 
     private fun performSearch(longitude:Double, latitude:Double) {
         mainViewModel.getForecastWeather(ApiConfig.getApiService().getWeatherForecast(latitude = latitude, longitude = longitude, tempreture_unit = this.context.getDegreeTemp(), wind_speed_unit = this.context.getDegreeVent()));

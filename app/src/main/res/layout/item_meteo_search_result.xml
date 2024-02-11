@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blanc_transparant"
-        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
     <LinearLayout
@@ -78,7 +78,7 @@
             style="@style/WeatherTextTitle"
             android:layout_width="137dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
+            android:layout_marginStart="210dp"
             android:text="H:25° B: 12°" />
     </LinearLayout>
     </LinearLayout>
